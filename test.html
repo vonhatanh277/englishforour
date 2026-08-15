@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>English Vocabulary Master</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background:
+                linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 25px;
+            color: #263238;
+        }
+
+        .container {
+            max-width: 1250px;
+            margin: auto;
+        }
+
+        /* HEADER */
+        .header {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .header h1 {
+            font-size: 36px;
+            color: #5b4bc4;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #777;
+            font-size: 16px;
+        }
+
+        /* CARD */
+        .card {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 22px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: #5142b9;
+            font-size: 22px;
+        }
+
+        /* BUTTONS */
+        button {
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.04);
+        }
+
+        .btn {
+            padding: 11px 18px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            margin: 4px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #00b09b, #96c93d);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #543c00;
+        }
+
+        .btn-gray {
+            background: #607d8b;
+        }
+
+        /* TABLE */
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        th {
+            padding: 15px 10px;
+            font-size: 15px;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+
+        tbody tr:hover {
+            background: #f8f7ff;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 11px 12px;
+            border: 2px solid #e4e1f7;
+            border-radius: 10px;
+            outline: none;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: #7061df;
+            box-shadow: 0 0 0 3px rgba(112, 97, 223, 0.12);
+        }
+
+        .word-input {
+            font-weight: 600;
+        }
+
+        .sound-btn {
+            width: 43px;
+            height: 43px;
+            border-radius: 50%;
+            background: #eeeaff;
+            color: #5b4bc4;
+            font-size: 20px;
+        }
+
+        .sound-btn:hover {
+            background: #6756d8;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #ffe8ec;
+            color: #e53935;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+
+        /* TOOLBAR */
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        /* QUIZ */
+        .quiz-box {
+            background:
+                linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            border-radius: 20px;
+            padding: 25px;
+        }
+
+        .quiz-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .stat-question {
+            background: #e8e4ff;
+            color: #5142b9;
+        }
+
+        .stat-correct {
+            background: #dff7e8;
+            color: #168044;
+        }
+
+        .stat-wrong {
+            background: #ffe2e6;
+            color: #d32f2f;
+        }
+
+        .quiz-table {
+            min-width: 650px;
+        }
+
+        .quiz-table th {
+            background: #5142b9;
+        }
+
+        .quiz-table td {
+            height: 70px;
+            font-size: 17px;
+        }
+
+        .quiz-input {
+            max-width: 320px;
+            margin: auto;
+            font-size: 16px;
+        }
+
+        .result {
+            font-weight: 700;
+            border-radius: 10px;
+            padding: 10px;
+            display: inline-block;
+            min-width: 100px;
+        }
+
+        .result.correct {
+            background: #d9f8e4;
+            color: #168044;
+        }
+
+        .result.wrong {
+            background: #ffe0e5;
+            color: #d32f2f;
+        }
+
+        .result.empty {
+            background: #f1f1f1;
+            color: #999;
+        }
+
+        .quiz-answer {
+            color: #777;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* EMPTY */
+        .empty-message {
+            padding: 35px;
+            text-align: center;
+            color: #888;
+            font-size: 16px;
+        }
+
+        /* NOTIFICATION */
+        .notification {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background: #263238;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 700px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 27px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .quiz-info {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>📚 English Vocabulary Master</h1>
+        <p>Nhập từ vựng – nghe phát âm – kiểm tra kiến thức</p>
+    </div>
+
+    <!-- VOCABULARY INPUT -->
+    <div class="card">
+
+        <div class="card-title">
+            📝 Danh sách từ vựng
+        </div>
+
+        <div class="toolbar">
+            <button class="btn btn-primary" onclick="addRow()">
+                ➕ Thêm từ
+            </button>
+
+            <button class="btn btn-success" onclick="saveData()">
+                💾 Lưu dữ liệu
+            </button>
+
+            <button class="btn btn-danger" onclick="clearAll()">
+                🗑️ Xóa tất cả
+            </button>
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">🇬🇧 Từ tiếng Anh</th>
+                        <th style="width: 25%;">🇻🇳 Nghĩa tiếng Việt</th>
+                        <th style="width: 15%;">🔤 Từ loại</th>
+                        <th style="width: 12%;">🔊 Phát âm</th>
+                        <th style="width: 10%;">⚙️</th>
+                    </tr>
+                </thead>
+
+                <tbody id="vocabularyBody"></tbody>
+            </table>
+
+        </div>
+
+        <div class="empty-message" id="emptyMessage">
+            Chưa có từ vựng. Hãy bấm "Thêm từ" để bắt đầu.
+        </div>
+
+    </div>
+
+
+    <!-- QUIZ -->
+    <div class="card">
+
+        <div class="card-title">
+            🎯 Kiểm tra từ vựng
+        </div>
+
+        <div class="toolbar">
+
+            <button class="btn btn-primary" onclick="startQuiz()">
+                🎲 Bắt đầu kiểm tra
+            </button>
+
+            <button class="btn btn-warning" onclick="checkQuiz()">
+                ✅ Kiểm tra đáp án
+            </button>
+
+            <button class="btn btn-success" onclick="nextQuestion()">
+                ➡️ Câu tiếp theo
+            </button>
+
+        </div>
+
+        <div class="quiz-box">
+
+            <div class="quiz-info">
+
+                <div class="stat stat-question">
+                    📖 Câu:
+                    <span id="questionNumber">0</span>
+                </div>
+
+                <div class="stat stat-correct">
+                    ✅ Đúng:
+                    <span id="correctCount">0</span>
+                </div>
+
+                <div class="stat stat-wrong">
+                    ❌ Sai:
+                    <span id="wrongCount">0</span>
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table class="quiz-table">
+
+                    <thead>
+                        <tr>
+                            <th>🇬🇧 Từ vựng</th>
+                            <th>🇻🇳 Nghĩa tiếng Việt</th>
+                            <th>📊 Kết quả</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="quizBody">
+
+                        <tr>
+                            <td colspan="3" class="empty-message">
+                                Hãy nhập từ vựng rồi bấm
+                                <b>"Bắt đầu kiểm tra"</b>.
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="notification" id="notification"></div>
+
+
+<script>
+
+    /* =====================================================
+       DATA
+    ===================================================== */
+
+    let vocabulary = [];
+
+    let quizWords = [];
+
+    let currentQuestion = 0;
+
+    let correctCount = 0;
+
+    let wrongCount = 0;
+
+    let quizStarted = false;
+
+
+    /* =====================================================
+       LOAD DATA
+    ===================================================== */
+
+    window.onload = function () {
+
+        loadData();
+
+        if (vocabulary.length === 0) {
+
+            addRow();
+            addRow();
+            addRow();
+
+        }
+
+    };
+
+
+    /* =====================================================
+       ADD ROW
+    ===================================================== */
+
+    function addRow(data = null) {
+
+        const tbody = document.getElementById("vocabularyBody");
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+
+            <td>
+                <input
+                    class="word-input"
+                    type="text"
+                    placeholder="Ví dụ: beautiful"
+                    value="${data ? escapeHTML(data.word) : ''}"
+                    oninput="autoSave()"
+                >
+            </td>
+
+            <td>
+                <input
+                    type="text"
+                    placeholder="Ví dụ: đẹp"
+                    value="${data ? escapeHTML(data.meaning) : ''}"
+                    oninput="autoSave()"
+                >
+            </td>
+
+            <td>
+
+                <select onchange="autoSave()">
+
+                    <option value="">-- Chọn --</option>
+
+                    <option value="N"
+                        ${data?.type === "N" ? "selected" : ""}>
+                        N - Danh từ
+                    </option>
+
+                    <option value="V"
+                        ${data?.type === "V" ? "selected" : ""}>
+                        V - Động từ
+                    </option>
+
+                    <option value="ADJ"
+                        ${data?.type === "ADJ" ? "selected" : ""}>
+                        ADJ - Tính từ
+                    </option>
+
+                    <option value="ADV"
+                        ${data?.type === "ADV" ? "selected" : ""}>
+                        ADV - Trạng từ
+                    </option>
+
+                </select>
+
+            </td>
+
+            <td>
+
+                <button
+                    class="sound-btn"
+                    title="Phát âm"
+                    onclick="speakWord(this)"
+                >
+                    🔊
+                </button>
+
+            </td>
+
+            <td>
+
+                <button
+                    class="delete-btn"
+                    title="Xóa từ này"
+                    onclick="deleteRow(this)"
+                >
+                    🗑
+                </button>
+
+            </td>
+
+        `;
+
+        tbody.appendChild(row);
+
+        updateEmptyMessage();
+
+    }
+
+
+    /* =====================================================
+       DELETE ROW
+    ===================================================== */
+
+    function deleteRow(button) {
+
+        const row = button.closest("tr");
+
+        row.remove();
+
+        autoSave();
+
+        updateEmptyMessage();
+
+    }
+
+
+    /* =====================================================
+       EMPTY MESSAGE
+    ===================================================== */
+
+    function updateEmptyMessage() {
+
+        const tbody = document.getElementById("vocabularyBody");
+
+        const message = document.getElementById("emptyMessage");
+
+        message.style.display =
+            tbody.children.length === 0
+                ? "block"
+                : "none";
+
+    }
+
+
+    /* =====================================================
+       GET DATA FROM TABLE
+    ===================================================== */
+
+    function getTableData() {
+
+        const rows =
+            document.querySelectorAll("#vocabularyBody tr");
+
+        const result = [];
+
+        rows.forEach(row => {
+
+            const inputs =
+                row.querySelectorAll("input");
+
+            const select =
+                row.querySelector("select");
+
+            if (!inputs.length || !select) return;
+
+            const word =
+                inputs[0].value.trim();
+
+            const meaning =
+                inputs[1].value.trim();
+
+            const type =
+                select.value;
+
+            if (word || meaning || type) {
+
+                result.push({
+                    word,
+                    meaning,
+                    type
+                });
+
+            }
+
+        });
+
+        return result;
+
+    }
+
+
+    /* =====================================================
+       SAVE
+    ===================================================== */
+
+    function saveData() {
+
+        vocabulary = getTableData();
+
+        localStorage.setItem(
+            "englishVocabulary",
+            JSON.stringify(vocabulary)
+        );
+
+        showNotification(
+            "💾 Đã lưu danh sách từ vựng!"
+        );
+
+    }
+
+
+    function autoSave() {
+
+        vocabulary = getTableData();
+
+        localStorage.setItem(
+            "englishVocabulary",
+            JSON.stringify(vocabulary)
+        );
+
+    }
+
+
+    /* =====================================================
+       LOAD
+    ===================================================== */
+
+    function loadData() {
+
+        const saved =
+            localStorage.getItem("englishVocabulary");
+
+        if (!saved) return;
+
+        try {
+
+            vocabulary = JSON.parse(saved);
+
+            const tbody =
+                document.getElementById("vocabularyBody");
+
+            tbody.innerHTML = "";
+
+            vocabulary.forEach(item => {
+                addRow(item);
+            });
+
+        } catch (error) {
+
+            console.log("Không thể tải dữ liệu.");
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CLEAR
+    ===================================================== */
+
+    function clearAll() {
+
+        if (!confirm(
+            "Bạn có chắc muốn xóa toàn bộ từ vựng?"
+        )) {
+            return;
+        }
+
+        vocabulary = [];
+
+        localStorage.removeItem(
+            "englishVocabulary"
+        );
+
+        document.getElementById(
+            "vocabularyBody"
+        ).innerHTML = "";
+
+        updateEmptyMessage();
+
+        showNotification(
+            "🗑️ Đã xóa toàn bộ dữ liệu."
+        );
+
+    }
+
+
+    /* =====================================================
+       GOOGLE TRANSLATE TTS
+       ===================================================== */
+
+    function speakWord(button) {
+
+        const row = button.closest("tr");
+
+        const input =
+            row.querySelector("input");
+
+        const word =
+            input.value.trim();
+
+        if (!word) {
+
+            showNotification(
+                "⚠️ Hãy nhập từ tiếng Anh trước."
+            );
+
+            return;
+
+        }
+
+        /*
+            Google Translate TTS.
+
+            Trình duyệt sẽ tải file âm thanh từ
+            Google Translate.
+
+            Có fallback sang SpeechSynthesis
+            nếu Google không phản hồi.
+        */
+
+        const googleURL =
+            "https://translate.google.com/translate_tts" +
+            "?ie=UTF-8" +
+            "&client=tw-ob" +
+            "&tl=en" +
+            "&q=" +
+            encodeURIComponent(word);
+
+        const audio =
+            new Audio(googleURL);
+
+        button.innerHTML = "🔉";
+
+        audio.play()
+            .then(() => {
+
+                audio.onended = function () {
+                    button.innerHTML = "🔊";
+                };
+
+            })
+            .catch(() => {
+
+                /*
+                    Fallback:
+                    giọng đọc có sẵn của Chrome/Edge.
+                */
+
+                button.innerHTML = "🔊";
+
+                const utterance =
+                    new SpeechSynthesisUtterance(word);
+
+                utterance.lang = "en-US";
+
+                utterance.rate = 0.85;
+
+                speechSynthesis.cancel();
+
+                speechSynthesis.speak(
+                    utterance
+                );
+
+            });
+
+    }
+
+
+    /* =====================================================
+       START QUIZ
+    ===================================================== */
+
+    function startQuiz() {
+
+        vocabulary = getTableData();
+
+        /*
+            Chỉ lấy những từ đã nhập đầy đủ:
+            English + Vietnamese + Part of Speech
+        */
+
+        const validWords =
+            vocabulary.filter(item =>
+                item.word &&
+                item.meaning &&
+                item.type
+            );
+
+        if (validWords.length === 0) {
+
+            showNotification(
+                "⚠️ Hãy nhập đầy đủ từ, nghĩa và từ loại."
+            );
+
+            return;
+
+        }
+
+        /*
+            Trộn ngẫu nhiên
+        */
+
+        quizWords =
+            [...validWords]
+            .sort(() => Math.random() - 0.5);
+
+        currentQuestion = 0;
+
+        correctCount = 0;
+
+        wrongCount = 0;
+
+        quizStarted = true;
+
+        updateStats();
+
+        renderQuiz();
+
+        showNotification(
+            "🎯 Bắt đầu kiểm tra!"
+        );
+
+    }
+
+
+    /* =====================================================
+       RENDER QUIZ
+    ===================================================== */
+
+    function renderQuiz() {
+
+        if (!quizStarted) return;
+
+        const word =
+            quizWords[currentQuestion];
+
+        if (!word) return;
+
+        const quizBody =
+            document.getElementById("quizBody");
+
+        /*
+            50% hiện English,
+            50% hiện Vietnamese.
+        */
+
+        const hideEnglish =
+            Math.random() < 0.5;
+
+        let englishCell = "";
+
+        let vietnameseCell = "";
+
+        if (hideEnglish) {
+
+            englishCell = `
+                <input
+                    id="quizEnglish"
+                    class="quiz-input"
+                    type="text"
+                    placeholder="Nhập từ tiếng Anh..."
+                    autocomplete="off"
+                >
+            `;
+
+            vietnameseCell = `
+                <strong>
+                    ${escapeHTML(word.meaning)}
+                </strong>
+            `;
+
+        } else {
+
+            englishCell = `
+                <strong>
+                    ${escapeHTML(word.word)}
+                </strong>
+                <div class="quiz-answer">
+                    ${escapeHTML(word.type)}
+                </div>
+            `;
+
+            vietnameseCell = `
+                <input
+                    id="quizVietnamese"
+                    class="quiz-input"
+                    type="text"
+                    placeholder="Nhập nghĩa tiếng Việt..."
+                    autocomplete="off"
+                >
+            `;
+
+        }
+
+        quizBody.innerHTML = `
+
+            <tr>
+
+                <td>
+                    ${englishCell}
+                </td>
+
+                <td>
+                    ${vietnameseCell}
+                </td>
+
+                <td>
+                    <span
+                        id="quizResult"
+                        class="result empty"
+                    >
+                        Chưa kiểm tra
+                    </span>
+                </td>
+
+            </tr>
+
+        `;
+
+        document.getElementById(
+            "questionNumber"
+        ).textContent =
+            `${currentQuestion + 1}/${quizWords.length}`;
+
+        /*
+            Cho phép Enter để kiểm tra
+        */
+
+        const input =
+            document.querySelector(".quiz-input");
+
+        if (input) {
+
+            input.focus();
+
+            input.addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (event.key === "Enter") {
+                        checkQuiz();
+                    }
+
+                }
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CHECK QUIZ
+    ===================================================== */
+
+    function checkQuiz() {
+
+        if (!quizStarted) {
+
+            showNotification(
+                "⚠️ Hãy bấm 'Bắt đầu kiểm tra' trước."
+            );
+
+            return;
+
+        }
+
+        const word =
+            quizWords[currentQuestion];
+
+        const result =
+            document.getElementById("quizResult");
+
+        const englishInput =
+            document.getElementById("quizEnglish");
+
+        const vietnameseInput =
+            document.getElementById("quizVietnamese");
+
+        let userAnswer = "";
+
+        let correctAnswer = "";
+
+        if (englishInput) {
+
+            userAnswer =
+                englishInput.value.trim();
+
+            correctAnswer =
+                word.word.trim();
+
+        }
+
+        if (vietnameseInput) {
+
+            userAnswer =
+                vietnameseInput.value.trim();
+
+            correctAnswer =
+                word.meaning.trim();
+
+        }
+
+        if (!userAnswer) {
+
+            showNotification(
+                "⚠️ Hãy nhập câu trả lời."
+            );
+
+            return;
+
+        }
+
+        /*
+            Chuẩn hóa câu trả lời.
+        */
+
+        const normalize = text => {
+
+            return text
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/[.,!?;:]/g, "")
+                .replace(/\s+/g, " ")
+                .trim();
+
+        };
+
+        const user =
+            normalize(userAnswer);
+
+        const correct =
+            normalize(correctAnswer);
+
+        /*
+            Nếu người dùng nhập nhiều nghĩa,
+            ví dụ:
+
+            đẹp / xinh / tốt đẹp
+
+            thì vẫn có thể chấp nhận nếu một
+            phần khớp với đáp án.
+        */
+
+        const possibleAnswers =
+            correctAnswer
+                .split("/")
+                .map(x => normalize(x));
+
+        const isCorrect =
+            user === correct ||
+            possibleAnswers.includes(user);
+
+        if (isCorrect) {
+
+            result.textContent =
+                "✓ Chính xác!";
+
+            result.className =
+                "result correct";
+
+            correctCount++;
+
+            showNotification(
+                "🎉 Chính xác!"
+            );
+
+        } else {
+
+            result.innerHTML =
+                `✗ Sai<br>
+                 <small>
+                 Đáp án: ${escapeHTML(correctAnswer)}
+                 </small>`;
+
+            result.className =
+                "result wrong";
+
+            wrongCount++;
+
+            showNotification(
+                "❌ Chưa đúng!"
+            );
+
+        }
+
+        /*
+            Khóa input sau khi kiểm tra
+        */
+
+        const input =
+            document.querySelector(".quiz-input");
+
+        if (input) {
+            input.disabled = true;
+        }
+
+        updateStats();
+
+    }
+
+
+    /* =====================================================
+       NEXT QUESTION
+    ===================================================== */
+
+    function nextQuestion() {
+
+        if (!quizStarted) {
+
+            showNotification(
+                "⚠️ Hãy bắt đầu bài kiểm tra."
+            );
+
+            return;
+
+        }
+
+        /*
+            Nếu chưa hết câu
+        */
+
+        if (
+            currentQuestion <
+            quizWords.length - 1
+        ) {
+
+            currentQuestion++;
+
+            renderQuiz();
+
+            return;
+
+        }
+
+        /*
+            Hết bài
+        */
+
+        showNotification(
+            `🏆 Hoàn thành! Đúng ${correctCount}/${quizWords.length} câu.`
+        );
+
+        showFinalResult();
+
+    }
+
+
+    /* =====================================================
+       FINAL RESULT
+    ===================================================== */
+
+    function showFinalResult() {
+
+        const quizBody =
+            document.getElementById("quizBody");
+
+        const total =
+            quizWords.length;
+
+        const percent =
+            total === 0
+                ? 0
+                : Math.round(
+                    correctCount / total * 100
+                );
+
+        let message = "";
+
+        if (percent >= 90) {
+            message = "🔥 Xuất sắc!";
+        }
+        else if (percent >= 70) {
+            message = "👏 Rất tốt!";
+        }
+        else if (percent >= 50) {
+            message = "💪 Cần cố gắng thêm!";
+        }
+        else {
+            message = "📚 Hãy ôn tập lại nhé!";
+        }
+
+        quizBody.innerHTML = `
+
+            <tr>
+
+                <td colspan="3">
+
+                    <div style="
+                        padding: 35px;
+                        text-align:center;
+                    ">
+
+                        <div style="
+                            font-size:50px;
+                            margin-bottom:15px;
+                        ">
+                            🏆
+                        </div>
+
+                        <h2 style="
+                            color:#5142b9;
+                            margin-bottom:10px;
+                        ">
+                            ${message}
+                        </h2>
+
+                        <p style="
+                            font-size:20px;
+                            margin-bottom:8px;
+                        ">
+                            Bạn đạt
+                            <strong>
+                                ${percent}%
+                            </strong>
+                        </p>
+
+                        <p>
+                            Đúng:
+                            <strong style="color:#168044">
+                                ${correctCount}
+                            </strong>
+                            &nbsp;&nbsp;
+                            Sai:
+                            <strong style="color:#d32f2f">
+                                ${wrongCount}
+                            </strong>
+                        </p>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        document.getElementById(
+            "questionNumber"
+        ).textContent = "Hoàn thành";
+
+    }
+
+
+    /* =====================================================
+       UPDATE STATS
+    ===================================================== */
+
+    function updateStats() {
+
+        document.getElementById(
+            "correctCount"
+        ).textContent =
+            correctCount;
+
+        document.getElementById(
+            "wrongCount"
+        ).textContent =
+            wrongCount;
+
+    }
+
+
+    /* =====================================================
+       NOTIFICATION
+    ===================================================== */
+
+    function showNotification(message) {
+
+        const notification =
+            document.getElementById(
+                "notification"
+            );
+
+        notification.textContent =
+            message;
+
+        notification.classList.add("show");
+
+        clearTimeout(
+            window.notificationTimer
+        );
+
+        window.notificationTimer =
+            setTimeout(() => {
+
+                notification.classList.remove(
+                    "show"
+                );
+
+            }, 2500);
+
+    }
+
+
+    /* =====================================================
+       ESCAPE HTML
+    ===================================================== */
+
+    function escapeHTML(value) {
+
+        return String(value || "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+</script>
+
+</body>
+</html>
